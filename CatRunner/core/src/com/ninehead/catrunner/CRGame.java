@@ -2,32 +2,68 @@ package com.ninehead.catrunner;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ninehead.catrunner.handlers.GameStateManager;
+import com.ninehead.catrunner.handlers.Timer;
 
 public class CRGame extends ApplicationAdapter {
+
+	public static final String TITLE = "Cat Runner";
+
+	public static final float STEP = 1 / 60f;
+	private Timer timer;
+	private float dt;
+
 	private SpriteBatch batch;
-	private Texture img;
-	private MenuState menu;
+	private OrthographicCamera cam;
+	private OrthographicCamera hudCam;
+
+	GameStateManager stateManager;
 
 	@Override
 	public void create() {
+
 		Assets.getInstance().loadAllAssets();
+
 		this.batch = new SpriteBatch();
-		this.img = new Texture("badlogic.jpg");
-		this.menu = new MenuState();
+
+		this.stateManager = new GameStateManager(this);
+		this.stateManager.pushState(GameStateManager.MENU);
+
+		this.cam = new OrthographicCamera();
+		this.cam.setToOrtho(true, Constants.STANDARD_WIDTH,
+				Constants.STANDARD_HEIGHT);
+
+		this.timer = new Timer();
 	}
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		this.menu.render(Gdx.graphics.getDeltaTime());
+		this.dt = Gdx.graphics.getDeltaTime();
+		this.timer.update(this.dt);
+		while (this.timer.now() >= STEP) {
+			this.timer.update(-STEP);
+			this.stateManager.update(this.dt);
+			this.stateManager.render();
+		}
 	}
 
 	@Override
 	public void dispose() {
 		Assets.getInstance().dispose();
 	}
+
+	public SpriteBatch getSpriteBatch() {
+		return this.batch;
+	}
+
+	public OrthographicCamera getCamera() {
+		return this.cam;
+	}
+
+	public OrthographicCamera getHUDCamera() {
+		return this.hudCam;
+	}
+
 }
