@@ -24,6 +24,13 @@ Sun
   orig: 355, 364
   offset: 0, 0
   index: -1
+title
+  rotate: false
+  xy: 1283, 724
+  size: 493, 289
+  orig: 493, 289
+  offset: 0, 0
+  index: -1
 Hill
   rotate: false
   xy: 2, 1104

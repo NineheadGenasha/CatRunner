@@ -33,8 +33,8 @@ public class Assets {
 		}
 	}
 
-	public TextureRegion getTextureRegion(String _name) {
-		return this.textureRegionCache.get(_name);
+	public TextureRegion getTextureRegion(String _fileName) {
+		return this.textureRegionCache.get(_fileName);
 	}
 
 	public void dispose() {

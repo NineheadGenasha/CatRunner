@@ -6,7 +6,6 @@ import com.badlogic.gdx.tools.imagepacker.TexturePacker;
 import com.badlogic.gdx.tools.imagepacker.TexturePacker.Settings;
 import com.ninehead.catrunner.CRGame;
 
-
 public class DesktopLauncher {
 	private static final boolean rebuildAtlas = true;
 
@@ -19,6 +18,8 @@ public class DesktopLauncher {
 					"../android/assets/Image", "CatRunner.pack");
 		}
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = 1280;
+		config.height = 720;
 		new LwjglApplication(new CRGame(), config);
 	}
 }
