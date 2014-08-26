@@ -27,10 +27,12 @@ public class InputLayer extends InputAdapter {
 		float y = (this.camera.viewportHeight / Gdx.graphics.getHeight() * (Gdx.graphics
 				.getHeight() - screenY)) - offsetY;
 		System.out.println(x + " " + y);
+		boolean hasTouchedButton = false;
 		for (int i = 0; i < this.buttons.size; i++) {
-			this.buttons.get(i).isTouchDown(x, y);
+			hasTouchedButton = hasTouchedButton
+					|| this.buttons.get(i).isTouchDown(x, y);
 		}
-		return super.touchDown(screenX, screenY, pointer, button);
+		return hasTouchedButton;
 	}
 
 	@Override
@@ -43,10 +45,13 @@ public class InputLayer extends InputAdapter {
 				- offsetX;
 		float y = (this.camera.viewportHeight / Gdx.graphics.getHeight() * (Gdx.graphics
 				.getHeight() - screenY)) - offsetY;
+
+		boolean hasTouchedButton = false;
 		for (int i = 0; i < this.buttons.size; i++) {
-			this.buttons.get(i).isTouchUp(x, y);
+			hasTouchedButton = hasTouchedButton
+					|| this.buttons.get(i).isTouchUp(x, y);
 		}
-		return super.touchUp(screenX, screenY, pointer, button);
+		return hasTouchedButton;
 	}
 
 	public void addButton(Button button) {

@@ -27,20 +27,24 @@ public class Button {
 				+ this.textureRegion.getRegionHeight());
 	}
 
-	void isTouchDown(float x, float y) {
+	boolean isTouchDown(float x, float y) {
 		if (this.rectangle.contains(x, y)) {
 			for (int i = 0; i < this.listeners.size; i++) {
 				this.listeners.get(i).hasTouchDown();
 			}
+			return true;
 		}
+		return false;
 	}
 
-	void isTouchUp(float x, float y) {
+	boolean isTouchUp(float x, float y) {
 		if (this.rectangle.contains(x, y)) {
 			for (int i = 0; i < this.listeners.size; i++) {
 				this.listeners.get(i).hasTouchUp();
 			}
+			return true;
 		}
+		return false;
 	}
 
 	void draw(SpriteBatch batch) {

@@ -2,8 +2,10 @@ package com.ninehead.catrunner;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.ninehead.catrunner.handlers.GameStateManager;
 import com.ninehead.catrunner.handlers.Timer;
 
@@ -19,6 +21,8 @@ public class CRGame extends ApplicationAdapter {
 	private OrthographicCamera cam;
 	private OrthographicCamera hudCam;
 
+	private FitViewport hudViewport;
+
 	GameStateManager stateManager;
 
 	@Override
@@ -33,12 +37,10 @@ public class CRGame extends ApplicationAdapter {
 		this.cam = new OrthographicCamera();
 		this.cam.setToOrtho(false, Constants.STANDARD_WIDTH,
 				Constants.STANDARD_HEIGHT);
-		this.hudCam = new OrthographicCamera();
-		this.hudCam.setToOrtho(false, Constants.STANDARD_WIDTH,
-				Constants.STANDARD_HEIGHT);
 
-		this.hudCam = new OrthographicCamera(Constants.STANDARD_WIDTH,
-				Constants.STANDARD_HEIGHT);
+		this.hudCam = new OrthographicCamera();
+		this.hudViewport = new FitViewport(Constants.STANDARD_WIDTH,
+				Constants.STANDARD_HEIGHT, this.hudCam);
 		this.hudCam.position.set(Constants.STANDARD_WIDTH / 2,
 				Constants.STANDARD_HEIGHT / 2, 0);
 
@@ -49,6 +51,7 @@ public class CRGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		this.dt = Gdx.graphics.getDeltaTime();
 		this.timer.update(this.dt);
 		while (this.timer.now() >= STEP) {
@@ -56,6 +59,11 @@ public class CRGame extends ApplicationAdapter {
 			this.stateManager.update(this.dt);
 			this.stateManager.render();
 		}
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		this.hudViewport.update(width, height);
 	}
 
 	@Override

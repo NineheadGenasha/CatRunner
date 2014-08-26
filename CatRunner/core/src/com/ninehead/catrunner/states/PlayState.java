@@ -1,7 +1,5 @@
 package com.ninehead.catrunner.states;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -62,7 +60,6 @@ public class PlayState extends GameState {
 	@Override
 	public void render() {
 
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		this.batch.setProjectionMatrix(this.oc.combined);
 
 		drawMountain();
@@ -112,7 +109,7 @@ public class PlayState extends GameState {
 		this.batch.begin();
 		this.trMountain.setRegion((int) this.mountain_nowX, this.mountain_y,
 				this.mountain_x + this.mountain_width
-				- (int) this.mountain_nowX, this.mountain_height);
+						- (int) this.mountain_nowX, this.mountain_height);
 		this.batch.draw(this.trMountain, 0, 0);
 		this.trMountain.setRegion(this.mountain_x, this.mountain_y,
 				(int) this.mountain_nowX - this.hill_x, this.mountain_height);
