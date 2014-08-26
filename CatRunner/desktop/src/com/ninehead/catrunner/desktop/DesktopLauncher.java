@@ -2,12 +2,12 @@ package com.ninehead.catrunner.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.tools.imagepacker.TexturePacker;
-import com.badlogic.gdx.tools.imagepacker.TexturePacker.Settings;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import com.ninehead.catrunner.CRGame;
 
 public class DesktopLauncher {
-	private static final boolean rebuildAtlas = true;
+	private static final boolean rebuildAtlas = false;
 
 	public static void main(String[] arg) {
 		if (rebuildAtlas) {
