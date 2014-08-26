@@ -3,6 +3,10 @@ package com.ninehead.catrunner.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -17,6 +21,10 @@ public class PlayState extends GameState {
 	private final Box2DDebugRenderer b2dRenderer;
 
 	private ParalaxBackgroundList bgList;
+	
+	private TiledMap tileMap;
+	private float tileSize;
+	private OrthogonalTiledMapRenderer tmr;
 
 	public PlayState(GameStateManager stateManager) {
 		super(stateManager);
@@ -29,6 +37,7 @@ public class PlayState extends GameState {
 		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("morningMountain"), 2f));
 		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("Hill"), 10f));
 		
+		createTiles();
 	}
 
 	@Override
@@ -41,8 +50,11 @@ public class PlayState extends GameState {
 
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		this.batch.setProjectionMatrix(this.cam.combined);
-
+		
 		bgList.draw(batch);
+		
+		tmr.setView(cam);
+		tmr.render();
 	}
 
 	@Override
@@ -55,6 +67,12 @@ public class PlayState extends GameState {
 	public void show() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private void createTiles(){
+		// load tile map
+		tileMap = new TmxMapLoader().load("res/testMap.tmx");
+		tmr = new OrthogonalTiledMapRenderer(tileMap);
 	}
 
 }
