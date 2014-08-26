@@ -1,5 +1,6 @@
 package com.ninehead.catrunner.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -22,6 +23,11 @@ public class MenuState extends GameState {
 		createHill();
 		createTitle();
 
+	}
+
+	@Override
+	public void show() {
+		Gdx.input.setInputProcessor(this.stage);
 	}
 
 	public void createBackground() {
@@ -48,14 +54,9 @@ public class MenuState extends GameState {
 				this.title.getHeight() / 2);
 		this.title.addAction(Actions.sequence(Actions.moveBy(0f,
 				-(this.title.getHeight() + 50), 0.5f), Actions.moveBy(0, 50,
-						0.2f), Actions.forever(Actions.sequence(
-								Actions.rotateBy(10, 1), Actions.rotateBy(-10, 1)))));
+				0.2f), Actions.forever(Actions.sequence(
+				Actions.rotateBy(10, 1), Actions.rotateBy(-10, 1)))));
 		this.stage.addActor(this.title);
-	}
-
-	@Override
-	public void handleInput() {
-		// do nothing
 	}
 
 	@Override

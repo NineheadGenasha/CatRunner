@@ -52,16 +52,23 @@ tile1
   orig: 100, 100
   offset: 0, 0
   index: -1
-NormalCat04
+SuperCat01
   rotate: false
   xy: 1386, 368
+  size: 128, 86
+  orig: 128, 86
+  offset: 0, 0
+  index: -1
+NormalCat04
+  rotate: false
+  xy: 1386, 456
   size: 128, 81
   orig: 128, 81
   offset: 0, 0
   index: -1
 NormalCat01
   rotate: false
-  xy: 1386, 451
+  xy: 1386, 539
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
@@ -75,14 +82,35 @@ NormalCat03
   index: -1
 NormalCat02
   rotate: false
-  xy: 1516, 451
+  xy: 1516, 456
   size: 120, 75
   orig: 120, 75
   offset: 0, 0
   index: -1
+NinjaCat01
+  rotate: false
+  xy: 1386, 621
+  size: 120, 75
+  orig: 120, 75
+  offset: 0, 0
+  index: -1
+NinjaCatButton
+  rotate: false
+  xy: 1284, 572
+  size: 87, 71
+  orig: 87, 71
+  offset: 0, 0
+  index: -1
+SuperCatButton
+  rotate: false
+  xy: 1284, 645
+  size: 63, 71
+  orig: 63, 71
+  offset: 0, 0
+  index: -1
 cloud
   rotate: false
-  xy: 1386, 533
+  xy: 1641, 2
   size: 128, 46
   orig: 128, 46
   offset: 0, 0

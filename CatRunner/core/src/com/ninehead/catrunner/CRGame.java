@@ -29,11 +29,17 @@ public class CRGame extends ApplicationAdapter {
 		this.batch = new SpriteBatch();
 
 		this.stateManager = new GameStateManager(this);
-		this.stateManager.pushState(GameStateManager.MENU);
 
 		this.cam = new OrthographicCamera();
 		this.cam.setToOrtho(true, Constants.STANDARD_WIDTH,
 				Constants.STANDARD_HEIGHT);
+
+		this.hudCam = new OrthographicCamera(Constants.STANDARD_WIDTH,
+				Constants.STANDARD_HEIGHT);
+		this.hudCam.position.set(Constants.STANDARD_WIDTH / 2,
+				Constants.STANDARD_HEIGHT / 2, 0);
+
+		this.stateManager.pushState(GameStateManager.BUTTON_TEST);
 
 		this.timer = new Timer();
 	}

@@ -6,24 +6,27 @@ import com.ninehead.catrunner.CRGame;
 import com.ninehead.catrunner.handlers.GameStateManager;
 
 public abstract class GameState {
-	
+
 	protected GameStateManager stateManager;
 	protected CRGame game;
 	protected SpriteBatch batch;
 	protected OrthographicCamera cam;
 	protected OrthographicCamera hudCam;
-	
-	public GameState(GameStateManager stateManager){
+
+	public GameState(GameStateManager stateManager) {
 		this.stateManager = stateManager;
-		game = stateManager.game();
-		batch = game.getSpriteBatch();
-		cam = game.getCamera();
-		hudCam = game.getHUDCamera();
+		this.game = stateManager.game();
+		this.batch = this.game.getSpriteBatch();
+		this.cam = this.game.getCamera();
+		this.hudCam = this.game.getHUDCamera();
 	}
-	
-	public abstract void handleInput();
+
+	public abstract void show();
+
 	public abstract void update(float dt);
+
 	public abstract void render();
+
 	public abstract void dispose();
-	
+
 }
