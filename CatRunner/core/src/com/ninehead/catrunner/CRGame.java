@@ -31,7 +31,10 @@ public class CRGame extends ApplicationAdapter {
 		this.stateManager = new GameStateManager(this);
 
 		this.cam = new OrthographicCamera();
-		this.cam.setToOrtho(true, Constants.STANDARD_WIDTH,
+		this.cam.setToOrtho(false, Constants.STANDARD_WIDTH,
+				Constants.STANDARD_HEIGHT);
+		this.hudCam = new OrthographicCamera();
+		this.hudCam.setToOrtho(false, Constants.STANDARD_WIDTH,
 				Constants.STANDARD_HEIGHT);
 
 		this.hudCam = new OrthographicCamera(Constants.STANDARD_WIDTH,
