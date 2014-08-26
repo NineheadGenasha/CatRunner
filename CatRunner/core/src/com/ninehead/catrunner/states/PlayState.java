@@ -2,6 +2,7 @@ package com.ninehead.catrunner.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.ninehead.catrunner.Assets;
+import com.ninehead.catrunner.Constants;
 import com.ninehead.catrunner.entities.ParalaxBackground;
 import com.ninehead.catrunner.entities.ParalaxBackgroundList;
 import com.ninehead.catrunner.handlers.GameStateManager;
