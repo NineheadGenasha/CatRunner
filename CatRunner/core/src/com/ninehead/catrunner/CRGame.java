@@ -42,7 +42,7 @@ public class CRGame extends ApplicationAdapter {
 		this.hudCam.position.set(Constants.STANDARD_WIDTH / 2,
 				Constants.STANDARD_HEIGHT / 2, 0);
 
-		this.stateManager.pushState(GameStateManager.BUTTON_TEST);
+		this.stateManager.pushState(GameStateManager.PLAY);
 
 		this.timer = new Timer();
 	}
