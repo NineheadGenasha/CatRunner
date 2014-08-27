@@ -13,7 +13,7 @@ public class CRGame extends ApplicationAdapter {
 
 	public static final String TITLE = "Cat Runner";
 
-	public static final float STEP = 1 / 60f;
+	public static final float STEP = 1 / 80f;
 	private Timer timer;
 	private float dt;
 
@@ -56,7 +56,7 @@ public class CRGame extends ApplicationAdapter {
 		this.timer.update(this.dt);
 		while (this.timer.now() >= STEP) {
 			this.timer.update(-STEP);
-			this.stateManager.update(this.dt);
+			this.stateManager.update(STEP);
 			this.stateManager.render();
 		}
 	}
