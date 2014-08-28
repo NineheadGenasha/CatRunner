@@ -5,7 +5,11 @@
  </tileset>
  <layer name="road" width="40" height="9">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DgASMReBQMTTCY43awuAMXAAAt3AAX
+   eJxjYBgFo2DoAkYceDABUt1HiV9whcdgCxNywHD1Fz4AADuYAB0=
   </data>
  </layer>
+ <objectgroup name="obstacle" width="40" height="9">
+  <object x="315" y="482" width="561" height="76"/>
+  <object x="1273" y="318" width="485" height="85"/>
+ </objectgroup>
 </map>

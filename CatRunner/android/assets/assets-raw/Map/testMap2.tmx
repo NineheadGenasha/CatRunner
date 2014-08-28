@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="9" tilewidth="80" tileheight="80">
+ <tileset firstgid="1" name="tile2" tilewidth="80" tileheight="80">
+  <image source="tile2.png" width="100" height="100"/>
+ </tileset>
+ <layer name="road" width="40" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DoAkYceDABUt1HiV9whcdgCxNywHD1Fz4AADuYAB0=
+  </data>
+ </layer>
+ <objectgroup name="obstacle" width="40" height="9">
+  <object x="315" y="482" width="561" height="76"/>
+  <object x="1273" y="318" width="485" height="85"/>
+ </objectgroup>
+</map>

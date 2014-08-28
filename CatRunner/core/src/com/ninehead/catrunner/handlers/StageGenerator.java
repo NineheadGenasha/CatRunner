@@ -85,7 +85,6 @@ public class StageGenerator {
 		Vector2 playerLocation = playState.getCat().getPosition();
 		playerLocation.x -= Constants.TILEMAP_WIDTH;
 		
-		world.dispose();
 		world = new World(new Vector2(0, 0), true);
 		
 		playState.createPlayer(playerLocation.x, playerLocation.y);
