@@ -15,7 +15,7 @@ public class Cat extends B2DEntity{
 		textureList[2] = Assets.getInstance().getTextureRegion("NormalCat03");
 		textureList[3] = Assets.getInstance().getTextureRegion("NormalCat04");
 		
-		setAnimation(textureList, 1/12f);
+		setAnimation(textureList, 1/7f);
 	}
 	
 }

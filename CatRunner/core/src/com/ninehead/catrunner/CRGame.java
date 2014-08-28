@@ -19,6 +19,7 @@ public class CRGame extends ApplicationAdapter {
 
 	private SpriteBatch batch;
 	private OrthographicCamera cam;
+	private OrthographicCamera cam2;
 	private OrthographicCamera hudCam;
 
 	private FitViewport hudViewport;
@@ -36,6 +37,10 @@ public class CRGame extends ApplicationAdapter {
 
 		this.cam = new OrthographicCamera();
 		this.cam.setToOrtho(false, Constants.STANDARD_WIDTH,
+				Constants.STANDARD_HEIGHT);
+		
+		this.cam2 = new OrthographicCamera();
+		this.cam2.setToOrtho(false, Constants.STANDARD_WIDTH,
 				Constants.STANDARD_HEIGHT);
 
 		this.hudCam = new OrthographicCamera();
@@ -77,6 +82,10 @@ public class CRGame extends ApplicationAdapter {
 
 	public OrthographicCamera getCamera() {
 		return this.cam;
+	}
+	
+	public OrthographicCamera getCamera2() {
+		return this.cam2;
 	}
 
 	public OrthographicCamera getHUDCamera() {

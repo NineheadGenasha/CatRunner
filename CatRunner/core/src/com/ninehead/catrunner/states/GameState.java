@@ -11,6 +11,7 @@ public abstract class GameState {
 	protected CRGame game;
 	protected SpriteBatch batch;
 	protected OrthographicCamera cam;
+	protected OrthographicCamera cam2;
 	protected OrthographicCamera hudCam;
 
 	public GameState(GameStateManager stateManager) {
@@ -18,7 +19,12 @@ public abstract class GameState {
 		this.game = stateManager.game();
 		this.batch = this.game.getSpriteBatch();
 		this.cam = this.game.getCamera();
+		this.cam2 = this.game.getCamera2();
 		this.hudCam = this.game.getHUDCamera();
+	}
+	
+	public GameStateManager getGameStateManager(){
+		return stateManager;
 	}
 
 	public abstract void show();
