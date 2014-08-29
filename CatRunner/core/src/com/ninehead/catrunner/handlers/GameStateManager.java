@@ -42,6 +42,8 @@ public class GameStateManager {
 	public void popState() {
 		GameState gs = this.gameStates.pop();
 		gs.dispose();
+		if(! gameStates.isEmpty())
+			this.gameStates.peek().show();
 	}
 
 	private GameState getState(int state) {

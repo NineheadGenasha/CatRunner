@@ -2,6 +2,8 @@ package com.ninehead.catrunner.states;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -18,6 +20,10 @@ import com.ninehead.catrunner.entities.ParalaxBackground;
 import com.ninehead.catrunner.entities.ParalaxBackgroundList;
 import com.ninehead.catrunner.handlers.GameStateManager;
 import com.ninehead.catrunner.handlers.StageGenerator;
+import com.ninehead.catrunner.handlers.input.Button;
+import com.ninehead.catrunner.handlers.input.ButtonListener;
+import com.ninehead.catrunner.handlers.input.InputLayer;
+import com.ninehead.catrunner.test.ButtonTest;
 
 
 public class PlayState extends GameState {
@@ -30,13 +36,16 @@ public class PlayState extends GameState {
 	private ParalaxBackgroundList bgList;
 	private StageGenerator stageGen;
 	
+	private InputMultiplexer inputComponents;
+	private InputLayer inputLayer;
+	
 	Cat cat;
 
 	public PlayState(GameStateManager stateManager) {
 		super(stateManager);
 
 		this.b2dRenderer = new Box2DDebugRenderer();
-		this.world = new World(new Vector2(0, 0), true);
+		this.world = new World(new Vector2(0, Constants.GRAVITATION), true);
 
 		bgList = new ParalaxBackgroundList();		
 		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("morningBackground")));
@@ -46,6 +55,24 @@ public class PlayState extends GameState {
 		stageGen = new StageGenerator(this);
 		
 		createPlayer(100, 600);
+		
+		inputComponents = new InputMultiplexer();
+		inputLayer = new InputLayer(hudCam);
+		
+		this.inputComponents.addProcessor(new InputAdapter(){
+			@Override
+			public boolean touchDown(int screenX, int screenY, int pointer,
+					int button) {
+				if (screenX > Constants.STANDARD_WIDTH/2)
+					cat.getBody().applyLinearImpulse(new Vector2(0,100),cat.getBody().getPosition(), true);
+				return true;
+			}
+		});
+		inputComponents.addProcessor(inputLayer);
+		
+		createNinjaCatButton();
+		createSuperCatButton();
+		
 	}
 
 	@Override
@@ -57,7 +84,7 @@ public class PlayState extends GameState {
 			playerLocation.x -= Constants.TILEMAP_WIDTH;
 			
 			world.dispose();
-			world = new World(new Vector2(0, 0), true);
+			world = new World(new Vector2(0, Constants.GRAVITATION), true);
 			
 			createPlayer(playerLocation.x, playerLocation.y);
 			stageGen.generate();
@@ -89,6 +116,9 @@ public class PlayState extends GameState {
 		if(DEBUG){
 			b2dRenderer.render(world, cam.combined);
 		}
+		
+		this.batch.setProjectionMatrix(this.hudCam.combined);
+		inputLayer.draw(batch);
 	}
 
 	@Override
@@ -100,8 +130,7 @@ public class PlayState extends GameState {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-
+		Gdx.input.setInputProcessor(inputComponents);
 	}
 	
 	public void createPlayer(float x, float y){
@@ -113,9 +142,21 @@ public class PlayState extends GameState {
 		bdef.linearVelocity.set(1000f, 0);
 		Body pbody = world.createBody(bdef);
 		
-		shape.setAsBox(40, 36, new Vector2(33,-2), 0);
+		shape.setAsBox(40, 36, new Vector2(33, 0), 0);
 		fdef.shape = shape;
-		pbody.createFixture(fdef).setUserData("box");
+		fdef.isSensor = false;
+		fdef.filter.categoryBits = Constants.BIT_PLAYER;
+		fdef.filter.maskBits = Constants.BIT_ROAD;
+		fdef.friction = 0;
+		pbody.createFixture(fdef).setUserData("cat_body");
+		
+		shape.setAsBox(40, 4, new Vector2(33,-36), 0);
+		fdef.shape = shape;
+		fdef.isSensor = true;
+		fdef.filter.categoryBits = Constants.BIT_PLAYER;
+		fdef.filter.maskBits = Constants.BIT_ROAD;
+		fdef.friction = 0;
+		pbody.createFixture(fdef).setUserData("cat_foot");
 		
 		cat = new Cat(pbody);
 		pbody.setUserData(cat);
@@ -125,4 +166,48 @@ public class PlayState extends GameState {
 		return world;
 	}
 	
+	private void createNinjaCatButton() {
+		Button ninjaButton = new Button(Assets.getInstance().getTextureRegion(
+				"NinjaCatButton"));
+
+		ninjaButton.addListener(new ButtonListener() {
+
+			@Override
+			public void hasTouchDown() {
+				System.out.println("Ninja Clicked");
+				//textureRegion = Assets.getInstance().getTextureRegion("NinjaCat01");
+			}
+
+			@Override
+			public void hasTouchUp() {
+				//ButtonTest.this.textureRegion = Assets.getInstance().getTextureRegion("NormalCat01");
+			}
+
+		});
+		ninjaButton.setPosition(0, 0.2f * Constants.STANDARD_HEIGHT);
+		this.inputLayer.addButton(ninjaButton);
+	}
+	
+	public void createSuperCatButton() {
+		Button superButton = new Button(Assets.getInstance().getTextureRegion(
+				"SuperCatButton"));
+
+		superButton.addListener(new ButtonListener() {
+
+			@Override
+			public void hasTouchDown() {
+				System.out.println("Super Clicked");
+				//ButtonTest.this.textureRegion = Assets.getInstance().getTextureRegion("SuperCat01");
+			}
+
+			@Override
+			public void hasTouchUp() {
+				//ButtonTest.this.textureRegion = Assets.getInstance().getTextureRegion("NormalCat01");
+			}
+
+		});
+		superButton.setPosition(0, 0.4f * Constants.STANDARD_HEIGHT);
+		this.inputLayer.addButton(superButton);
+	}
+
 }

@@ -93,6 +93,10 @@ public class StageGenerator {
 		
 		MapLayer tileLayer = tileMap.getLayers().get("obstacle");
 		
+		fdef.filter.categoryBits = Constants.BIT_ROAD;
+		fdef.filter.maskBits = Constants.BIT_PLAYER;
+		fdef.isSensor = false;
+		
 		for(MapObject mo : tileLayer.getObjects()){
 			RectangleMapObject rectMO = (RectangleMapObject) mo;
 			Rectangle rect = rectMO.getRectangle();
@@ -105,7 +109,9 @@ public class StageGenerator {
 			shape.setAsBox(rect.getWidth()/2f, rect.getHeight()/2f);
 			
 			fdef.shape = shape;
-			body.createFixture(fdef);
+			body.createFixture(fdef).setUserData("road");
+			
+			body.setUserData("road");
 		}
 		
 		tileLayer = tileMap2.getLayers().get("obstacle");
@@ -122,7 +128,9 @@ public class StageGenerator {
 			shape.setAsBox(rect.getWidth()/2f, rect.getHeight()/2f);
 			
 			fdef.shape = shape;
-			body.createFixture(fdef);
+			body.createFixture(fdef).setUserData("road");
+			
+			body.setUserData("road");
 		}
 		
 	}

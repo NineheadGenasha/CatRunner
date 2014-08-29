@@ -6,4 +6,9 @@ public class Constants {
 	public static final int STANDARD_HEIGHT = 720;
 	public static final int TILEMAP_WIDTH = 3200;
 	public static final int TILEMAP_HEIGHT = 720;
+	
+	public static final int BIT_PLAYER = 2;
+	public static final int BIT_ROAD = 4;
+	
+	public static final float GRAVITATION = -100;
 }
