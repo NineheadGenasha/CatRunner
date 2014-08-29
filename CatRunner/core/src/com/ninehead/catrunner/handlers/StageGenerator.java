@@ -60,13 +60,6 @@ public class StageGenerator {
      
    }
    
-   
-   public void update(){
-		if(playState.getCat().getPosition().x > 1.5*Constants.TILEMAP_WIDTH){
-			generate();
-		}
-   }
-   
    public void render(){
 		tmr.setView(cam);
 		tmr.render();
@@ -81,13 +74,7 @@ public class StageGenerator {
 	  }
    }
    
-   private void generate(){
-		Vector2 playerLocation = playState.getCat().getPosition();
-		playerLocation.x -= Constants.TILEMAP_WIDTH;
-		
-		world = new World(new Vector2(0, 0), true);
-		
-		playState.createPlayer(playerLocation.x, playerLocation.y);
+   public void generate(){
 		
 		firstMap = secondMap;
 		secondMap = abs(randomGen.nextInt() % tm.length);
@@ -98,6 +85,8 @@ public class StageGenerator {
 	private void createTiles(TiledMap tileMap, TiledMap tileMap2){
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
+		
+		world = playState.getWorld();
 		
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 		tmr2 = new OrthogonalTiledMapRenderer(tileMap2);

@@ -51,9 +51,18 @@ public class PlayState extends GameState {
 	@Override
 	public void update(float dt) {
 		
+		if(cat.getPosition().x > 1.5*Constants.TILEMAP_WIDTH){
+			
+			Vector2 playerLocation = cat.getPosition();
+			playerLocation.x -= Constants.TILEMAP_WIDTH;
+			
+			world.dispose();
+			world = new World(new Vector2(0, 0), true);
+			
+			createPlayer(playerLocation.x, playerLocation.y);
+			stageGen.generate();
+		}
 		world.step(dt, 6, 2);
-		
-		stageGen.update();
 		cat.update(dt);
 		
 		bgList.update(dt);
@@ -104,16 +113,12 @@ public class PlayState extends GameState {
 		bdef.linearVelocity.set(1000f, 0);
 		Body pbody = world.createBody(bdef);
 		
-		shape.setAsBox(36, 36);
+		shape.setAsBox(40, 36, new Vector2(33,-2), 0);
 		fdef.shape = shape;
 		pbody.createFixture(fdef).setUserData("box");
 		
 		cat = new Cat(pbody);
 		pbody.setUserData(cat);
-	}
-	
-	public Cat getCat(){
-		return cat;
 	}
 	
 	public World getWorld(){
