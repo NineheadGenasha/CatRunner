@@ -12,7 +12,7 @@ public class DesktopLauncher {
 	public static void main(String[] arg) {
 		if (rebuildAtlas) {
 			Settings settings = new Settings();
-			settings.maxWidth = 2048;
+			settings.maxWidth = 4096;
 			settings.maxHeight = 2048;
 			TexturePacker.process(settings, "assets-raw/Image",
 					"../android/assets/Image", "CatRunner.pack");
