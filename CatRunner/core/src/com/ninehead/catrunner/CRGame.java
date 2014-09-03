@@ -30,6 +30,7 @@ public class CRGame extends ApplicationAdapter {
 	public void create() {
 
 		Assets.getInstance().loadAllAssets();
+		GamePreferences.getInstance().load();
 
 		this.batch = new SpriteBatch();
 
@@ -52,6 +53,7 @@ public class CRGame extends ApplicationAdapter {
 		this.stateManager.pushState(GameStateManager.MENU);
 
 		this.timer = new Timer();
+
 	}
 
 	@Override
@@ -59,11 +61,8 @@ public class CRGame extends ApplicationAdapter {
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		this.dt = Gdx.graphics.getDeltaTime();
 		this.timer.update(this.dt);
-		while (this.timer.now() >= STEP) {
-			this.timer.update(-STEP);
-			this.stateManager.update(STEP);
-			this.stateManager.render();
-		}
+		this.stateManager.update(this.dt);
+		this.stateManager.render();
 	}
 
 	@Override
@@ -72,8 +71,15 @@ public class CRGame extends ApplicationAdapter {
 	}
 
 	@Override
+	public void pause() {
+		GamePreferences.getInstance().save();
+	}
+
+	@Override
 	public void dispose() {
+		System.out.println("dispose");
 		Assets.getInstance().dispose();
+		GamePreferences.getInstance().save();
 	}
 
 	public SpriteBatch getSpriteBatch() {
