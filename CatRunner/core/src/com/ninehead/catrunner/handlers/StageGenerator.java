@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.ninehead.catrunner.CRGame;
 import com.ninehead.catrunner.Constants;
-import com.ninehead.catrunner.entities.Cat;
+import com.ninehead.catrunner.entities.NormalCat;
 import com.ninehead.catrunner.states.PlayState;
 
 public class StageGenerator {

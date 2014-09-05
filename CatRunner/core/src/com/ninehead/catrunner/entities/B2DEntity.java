@@ -39,6 +39,10 @@ public class B2DEntity {
 		return body;
 	}
 	
+	public void changeBody(Body body){
+		this.body = body; 
+	}
+	
 	public Vector2 getPosition(){
 		return body.getPosition();
 	}

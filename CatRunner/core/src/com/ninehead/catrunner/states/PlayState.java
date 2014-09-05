@@ -16,8 +16,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.ninehead.catrunner.Assets;
 import com.ninehead.catrunner.Constants;
 import com.ninehead.catrunner.entities.Cat;
+import com.ninehead.catrunner.entities.NinjaCat;
+import com.ninehead.catrunner.entities.NormalCat;
 import com.ninehead.catrunner.entities.ParalaxBackground;
 import com.ninehead.catrunner.entities.ParalaxBackgroundList;
+import com.ninehead.catrunner.entities.SuperCat;
 import com.ninehead.catrunner.handlers.GameStateManager;
 import com.ninehead.catrunner.handlers.StageGenerator;
 import com.ninehead.catrunner.handlers.input.Button;
@@ -61,20 +64,21 @@ public class PlayState extends GameState {
 		inputComponents = new InputMultiplexer();
 		inputLayer = new InputLayer(hudCam);
 		
+		createNinjaCatButton();
+		createSuperCatButton();
+		inputComponents.addProcessor(inputLayer);
+		
 		this.inputComponents.addProcessor(new InputAdapter(){
 			@Override
 			public boolean touchDown(int screenX, int screenY, int pointer,
 					int button) {
-				if (screenX > Constants.STANDARD_WIDTH/2)
-					cat.getBody().applyLinearImpulse(new Vector2(0,100),cat.getBody().getPosition(), true);
+				if (screenX > Constants.STANDARD_WIDTH/2){
+					cat.action();
+				}
 				return true;
 			}
 		});
-		inputComponents.addProcessor(inputLayer);
 				
-		createNinjaCatButton();
-		createSuperCatButton();
-		
 	}
 
 	@Override
@@ -88,7 +92,7 @@ public class PlayState extends GameState {
 			world.dispose();
 			world = new World(new Vector2(0, Constants.GRAVITATION), true);
 			
-			createPlayer(playerLocation.x, playerLocation.y);
+			playerChangeWorld(playerLocation.x, playerLocation.y);
 			stageGen.generate();
 		}
 		world.step(dt, 6, 2);
@@ -160,8 +164,36 @@ public class PlayState extends GameState {
 		fdef.friction = 0;
 		pbody.createFixture(fdef).setUserData("cat_foot");
 		
-		cat = new Cat(pbody);
+		cat = new NormalCat(pbody);
 		pbody.setUserData(cat);
+	}
+	
+	public void playerChangeWorld(float x, float y){
+		BodyDef bdef = new BodyDef();
+		PolygonShape shape = new PolygonShape();
+		FixtureDef fdef = new FixtureDef();
+		bdef.position.set(x, y);
+		bdef.type = BodyType.DynamicBody;
+		bdef.linearVelocity.set(1000f, 0);
+		Body pbody = world.createBody(bdef);
+		
+		shape.setAsBox(40, 36, new Vector2(33, 0), 0);
+		fdef.shape = shape;
+		fdef.isSensor = false;
+		fdef.filter.categoryBits = Constants.BIT_PLAYER;
+		fdef.filter.maskBits = Constants.BIT_ROAD;
+		fdef.friction = 0;
+		pbody.createFixture(fdef).setUserData("cat_body");
+		
+		shape.setAsBox(40, 4, new Vector2(33,-36), 0);
+		fdef.shape = shape;
+		fdef.isSensor = true;
+		fdef.filter.categoryBits = Constants.BIT_PLAYER;
+		fdef.filter.maskBits = Constants.BIT_ROAD;
+		fdef.friction = 0;
+		pbody.createFixture(fdef).setUserData("cat_foot");
+		
+		cat.changeBody(pbody);
 	}
 	
 	public World getWorld(){
@@ -177,12 +209,12 @@ public class PlayState extends GameState {
 			@Override
 			public void hasTouchDown() {
 				System.out.println("Ninja Clicked");
-				//textureRegion = Assets.getInstance().getTextureRegion("NinjaCat01");
+				cat = new NinjaCat(cat.getBody());
 			}
 
 			@Override
 			public void hasTouchUp() {
-				//ButtonTest.this.textureRegion = Assets.getInstance().getTextureRegion("NormalCat01");
+				cat = new NormalCat(cat.getBody());
 			}
 
 		});
@@ -199,12 +231,12 @@ public class PlayState extends GameState {
 			@Override
 			public void hasTouchDown() {
 				System.out.println("Super Clicked");
-				//ButtonTest.this.textureRegion = Assets.getInstance().getTextureRegion("SuperCat01");
+				cat = new SuperCat(cat.getBody());
 			}
 
 			@Override
 			public void hasTouchUp() {
-				//ButtonTest.this.textureRegion = Assets.getInstance().getTextureRegion("NormalCat01");
+				cat = new NormalCat(cat.getBody());
 			}
 
 		});
