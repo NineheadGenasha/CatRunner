@@ -109,6 +109,7 @@ public class StageGenerator {
 			shape.setAsBox(rect.getWidth()/2f, rect.getHeight()/2f);
 			
 			fdef.shape = shape;
+			fdef.friction = 0;
 			body.createFixture(fdef).setUserData("road");
 			
 			body.setUserData("road");
@@ -128,9 +129,9 @@ public class StageGenerator {
 			shape.setAsBox(rect.getWidth()/2f, rect.getHeight()/2f);
 			
 			fdef.shape = shape;
-			body.createFixture(fdef).setUserData("road");
+			body.createFixture(fdef).setUserData("obstacle");
 			
-			body.setUserData("road");
+			body.setUserData("obstacle");
 		}
 		
 	}

@@ -145,7 +145,6 @@ public class PlayState extends GameState {
 		FixtureDef fdef = new FixtureDef();
 		bdef.position.set(x, y);
 		bdef.type = BodyType.DynamicBody;
-		bdef.linearVelocity.set(1000f, 0);
 		Body pbody = world.createBody(bdef);
 		
 		shape.setAsBox(40, 36, new Vector2(33, 0), 0);
@@ -164,6 +163,7 @@ public class PlayState extends GameState {
 		fdef.friction = 0;
 		pbody.createFixture(fdef).setUserData("cat_foot");
 		
+		pbody.setLinearVelocity(1000, 0);
 		cat = new NormalCat(pbody);
 		pbody.setUserData(cat);
 	}
@@ -174,7 +174,6 @@ public class PlayState extends GameState {
 		FixtureDef fdef = new FixtureDef();
 		bdef.position.set(x, y);
 		bdef.type = BodyType.DynamicBody;
-		bdef.linearVelocity.set(1000f, 0);
 		Body pbody = world.createBody(bdef);
 		
 		shape.setAsBox(40, 36, new Vector2(33, 0), 0);
