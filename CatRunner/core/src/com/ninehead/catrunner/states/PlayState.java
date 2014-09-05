@@ -24,6 +24,7 @@ import com.ninehead.catrunner.handlers.input.Button;
 import com.ninehead.catrunner.handlers.input.ButtonListener;
 import com.ninehead.catrunner.handlers.input.InputLayer;
 import com.ninehead.catrunner.test.ButtonTest;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 
 public class PlayState extends GameState {
@@ -49,8 +50,9 @@ public class PlayState extends GameState {
 
 		bgList = new ParalaxBackgroundList();		
 		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("morningBackground")));
-		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("morningMountain"), 4f));
-		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("Hill"), 20f));
+		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("morningMountain"), 20f));
+		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("Hill"), 100f));
+		bgList.add(new ParalaxBackground(Assets.getInstance().getTextureRegion("Clouds"), 17f));
 		
 		stageGen = new StageGenerator(this);
 		
@@ -69,7 +71,7 @@ public class PlayState extends GameState {
 			}
 		});
 		inputComponents.addProcessor(inputLayer);
-		
+				
 		createNinjaCatButton();
 		createSuperCatButton();
 		

@@ -165,7 +165,6 @@ public class MenuState extends GameState {
 				this.game.getHUDCamera().combined);
 		this.paralaxBackgrounds.draw(this.game.getSpriteBatch());
 		this.stage.draw();
-
 	}
 
 	@Override
